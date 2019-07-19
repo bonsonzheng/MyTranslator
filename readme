@@ -1,4 +1,8 @@
-THis is a tool to translate text message with |, the or operator, multiple or operator could be surrounded by 0:N brackets.This tool transalates the text to human readable statements
+THis is a tool to translate text message with "|", the or operator, 
+multiple or operator could be surrounded by 0:N brackets.
+This tool transalates the text to human readable statements
+
+
 Here are some example as the test cases indicate,
 How are you? ===> How are you?
 {{It is}|It's} up to you|him|her ====> It is up to you; It is up to him; It is up to her; It's up to you; It's up to him; It's up to her
