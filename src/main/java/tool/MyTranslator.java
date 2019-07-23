@@ -10,7 +10,11 @@ public class MyTranslator {
         Map<Integer, List<String>> helperMap = new HashMap<>();
         String str = removeRedundantBrackets(input).trim();
 
-        List<String> segments = parseByBrackets(str);
+        List<String> segments = parseByDelimiter(str, ' ');
+        if(segments.size() <= 1){
+            segments = parseByBrackets(str);
+        }
+
         for (int i = 0; i < segments.size(); i++) {
             List<String> parseResult = handleSegment(segments.get(i).trim());
             helperMap.put(i, parseResult);
@@ -24,7 +28,7 @@ public class MyTranslator {
         if(!containsBrackets(input)) {
             segmentResult.addAll(parseNoBracketStatement(input));
         }else {
-            List<String> orSegments = parseByDelimeter(input,'|');
+            List<String> orSegments = parseByDelimiter(input,'|');
             orSegments.forEach(seg-> segmentResult.addAll(translate(seg)));
         }
         return segmentResult;
@@ -125,7 +129,7 @@ public class MyTranslator {
         return result;
     }
 
-    private static List<String> parseByDelimeter(String input, char delemiter){
+    private static List<String> parseByDelimiter(String input, char delimiter){
         Stack stack = new Stack();
         List<String> result = new ArrayList<>();
         StringBuffer temp = new StringBuffer("");
@@ -137,7 +141,7 @@ public class MyTranslator {
             }else if (c=='}'){
                 temp.append(c);
                 stack.pop();
-            }else if(c == delemiter){
+            }else if(c == delimiter){
                 if(stack.isEmpty()){
                     result.add(temp.toString().trim());
                     temp.delete(0,temp.length());

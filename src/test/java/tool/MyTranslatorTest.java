@@ -43,6 +43,14 @@ public class MyTranslatorTest {
     }
 
     @Test
+    public void testBracketHasOrOperationWithPlainText(){
+        String s = "{Man United}|Arsenal is my favor";
+        String expected = "Man United is my favor; Arsenal is my favor";
+        List<String> result = MyTranslator.translate(s);
+        assertEquals(expected, print(result));
+    }
+
+    @Test
     public void testWithNestedBrackets(){
         String s = "{Jim|Kate} helped {{Mr Huang}|{Ms Huang}} a lot {{removing snow}|{cutting grass}}";
         String expected = "Jim helped Mr Huang a lot removing snow; Jim helped Mr Huang a lot cutting grass; Jim helped Ms Huang a lot removing snow; Jim helped Ms Huang a lot cutting grass; Kate helped Mr Huang a lot removing snow; Kate helped Mr Huang a lot cutting grass; Kate helped Ms Huang a lot removing snow; Kate helped Ms Huang a lot cutting grass";
