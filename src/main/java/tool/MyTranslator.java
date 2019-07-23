@@ -8,7 +8,7 @@ public class MyTranslator {
     public static List<String> translate(String input) {
 
         Map<Integer, List<String>> helperMap = new HashMap<>();
-        String str = removeRedundantBrackets(input).trim();
+        String str = reformatBracktes(removeRedundantBrackets(trimSpaceAroundOrOperator(input))).trim();
 
         List<String> segments = parseByDelimiter(str, ' ');
         if(segments.size() <= 1){
@@ -124,7 +124,7 @@ public class MyTranslator {
         if (!temp.toString().isEmpty()) {
             result.add(temp.toString().trim());
         }
-        print("parse by brackets", result);
+        //print("parse by brackets", result);
 
         return result;
     }
@@ -156,6 +156,14 @@ public class MyTranslator {
             result.add(temp.toString().trim());
         }
         return result;
+    }
+
+    public static String reformatBracktes(String input){
+        return input.replaceAll("(?<=[^|^ ])\\{", " {").replaceAll("}(?=[^$| ])", "\\} ");
+    }
+
+    public static String trimSpaceAroundOrOperator(String input){
+        return input.replaceAll("\\s*\\|\\s*","|");
     }
 
     private static String removeLeftAndRightBrackets(String str) {

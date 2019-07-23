@@ -66,6 +66,31 @@ public class MyTranslatorTest {
         assertEquals(expected, print(result));
     }
 
+    @Test
+    public void testReformatBrackets(){
+        String s = "{This is a bracket}How are you?{this is another bracket} {This is the 3rd bracket}";
+        String expected = "{This is a bracket} How are you? {this is another bracket} {This is the 3rd bracket}";
+        String reformatted = MyTranslator.reformatBracktes(s);
+        assertEquals(expected, reformatted);
+    }
+
+    @Test
+    public void testTrimSpaceAroundOrOperator(){
+        String s = "I'm not in good| decent format. {I'm even worse} | {I'm making chaos}";
+        String expected = "I'm not in good|decent format. {I'm even worse}|{I'm making chaos}";
+        String reformatted = MyTranslator.trimSpaceAroundOrOperator(s);
+        assertEquals(expected, reformatted);
+    }
+
+    @Test
+    public void testTolerantInputWithIndecentFormat(){
+        String s = "{Not well} |{not decently}formatted input is handled";
+        String expected = "Not well formatted input is handled; not decently formatted input is handled";
+        List<String> result = MyTranslator.translate(s);
+        assertEquals(expected, print(result));
+    }
+
+
     private String print(List<String> list){
         StringJoiner sj = new StringJoiner("; ");
         list.forEach(e->sj.add(e));
