@@ -179,13 +179,21 @@ public class MyTranslator {
             return aCollection;
         }
         List<String> fanOutResult = new ArrayList<>();
-        aCollection.forEach(e-> currentSeg.forEach(seg-> fanOutResult.add(e + " " + seg)));
+        aCollection.forEach(e-> currentSeg.forEach(seg-> {
+            String delimiter = isChinese(e) && isChinese(seg) ? "": " ";
+            fanOutResult.add(e + delimiter + seg);
+        }));
         return fanOut(aMap,fanOutResult,++idx);
     }
 
     private static void print(String prefix, List<String> content){
         content.forEach(e-> System.out.println("[" + prefix + "] " + e));
 
+    }
+
+    private static boolean isChinese(String s){
+        return s.codePoints().anyMatch(
+                codepoint->Character.UnicodeScript.of(codepoint) == Character.UnicodeScript.HAN);
     }
 
 }

@@ -50,6 +50,14 @@ public class MyTranslatorTest {
         assertEquals(expected, print(result));
     }
 
+    @Test
+    public void testWithChinese(){
+        String s="好 楞|鬼 劲|犀利|sharp";
+        String expected = "好楞劲; 好楞犀利; 好楞 sharp; 好鬼劲; 好鬼犀利; 好鬼 sharp";
+        List<String> result = MyTranslator.translate(s);
+        assertEquals(expected, print(result));
+    }
+
     private String print(List<String> list){
         StringJoiner sj = new StringJoiner("; ");
         list.forEach(e->sj.add(e));
